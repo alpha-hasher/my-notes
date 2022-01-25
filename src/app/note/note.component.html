@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-xs-6">
+    <div *ngIf="myNotes.length < 1; else displayNotesList">
+      No notes created! No worries, let's get started with your first note on
+      the right
+    </div>
+    <ng-template #displayNotesList>
+      <ol>
+        <li
+          style="
+            padding: 10px;
+            margin: 5px;
+            background-color: bisque;
+            cursor: pointer;
+          "
+          *ngFor="let note of myNotes; let i = index"
+          (click)="noteSelected(i)"
+        >
+          <b>{{ note.title }}</b>
+          <br />
+          <p>{{ note.content }}</p>
+        </li>
+      </ol>
+    </ng-template>
+  </div>
+  <div class="col-xs-6">
+    <edit-note *ngIf="modeIsEditOrCreate"></edit-note>
+    <display-note *ngIf="!modeIsEditOrCreate"></display-note>
+  </div>
+</div>

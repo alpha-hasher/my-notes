@@ -1,0 +1,48 @@
+<!-- elementRef noteForm -->
+<form class="form" #noteForm>
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      name="title"
+      class="form-control"
+      type="text"
+      id="title"
+      placeholder="Your note title goes here"
+      [ngModel]="selectedNoteTitle"
+      #title
+    />
+  </div>
+  <div class="form-group">
+    <label for="content">Note content</label>
+    <textarea
+      name="content"
+      class="form-control"
+      type="text"
+      id="content"
+      row="7"
+      placeholder="Your note content goes here"
+      [ngModel]="selectedNoteContent"
+      #content
+    ></textarea>
+  </div>
+
+  <button
+    *ngIf="!edittingANote"
+    class="btn btn-success pull-right"
+    type="button"
+    (click)="addNote(noteForm)"
+  >
+    Add
+  </button>
+
+  <button
+    *ngIf="edittingANote"
+    class="btn btn-success pull-right"
+    type="button"
+    (click)="editNote(noteForm)"
+  >
+    Edit
+  </button>
+
+  <button class="btn btn-default" type="reset">Reset</button>
+</form>

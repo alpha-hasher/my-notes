@@ -1,0 +1,9 @@
+.navlinks {
+  cursor: pointer;
+}
+
+.active,
+.navlinks:hover {
+  background-color: darkgray;
+  color: #fff;
+}
