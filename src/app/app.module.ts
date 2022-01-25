@@ -12,6 +12,9 @@ import { LogoutComponent } from './logout/logout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EditNoteComponent } from './note/edit-note/edit-note.component';
 import { DisplayNoteComponent } from './note/display-note/display-note.component';
+import { CaseTransformPipe } from './../directives_and_pipes/caseTransform.pipe';
+import { TitleStyleDirective } from 'src/directives_and_pipes/titleStyle.directive';
+import { RsIfDirective } from 'src/directives_and_pipes/rsIf.directive';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { DisplayNoteComponent } from './note/display-note/display-note.component
     LogoutComponent,
     NotFoundComponent,
     EditNoteComponent,
-    DisplayNoteComponent
+    DisplayNoteComponent,
+    CaseTransformPipe,
+    TitleStyleDirective,
+    RsIfDirective
   ],
   imports: [
     BrowserModule,

@@ -33,9 +33,11 @@ export class NotesService {
     return this.myNotes.slice();
   }
 
-  deleteNote (noteId: number) {
-    const deletedNote = this.myNotes.splice(noteId, 1);
-    this.loggingService.log('note deleted: ', deletedNote);
+  deleteNote () { // (noteId: number)
+    const deletedNote = this.myNotes.splice(this.selectedNoteId, 1);
+    this.selectedNoteId = -1;
+    this.editMode = false;
+    this.loggingService.log('note deleted: ', deletedNote[0]);
     this.updateNotesListners();
   }
 

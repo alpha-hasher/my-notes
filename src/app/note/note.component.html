@@ -8,23 +8,24 @@
       <ol>
         <li
           style="
-            padding: 10px;
-            margin: 5px;
+            padding: 20px 10px;
+            margin: 10px;
             background-color: bisque;
             cursor: pointer;
           "
           *ngFor="let note of myNotes; let i = index"
           (click)="noteSelected(i)"
         >
-          <b>{{ note.title }}</b>
+          <b styleTitle fontColor="grey">{{ note.title | toCase: "upper" }}</b>
           <br />
-          <p>{{ note.content }}</p>
+          <p style="margin-top: 20px">{{ note.content | toCase: "lower" }}</p>
         </li>
       </ol>
     </ng-template>
   </div>
   <div class="col-xs-6">
-    <edit-note *ngIf="modeIsEditOrCreate"></edit-note>
+    <!-- using custom structural if directive -->
+    <edit-note *rsIf="modeIsEditOrCreate"></edit-note>
     <display-note *ngIf="!modeIsEditOrCreate"></display-note>
   </div>
 </div>

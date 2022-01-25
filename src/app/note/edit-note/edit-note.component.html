@@ -35,14 +35,19 @@
     Add
   </button>
 
-  <button
-    *ngIf="edittingANote"
-    class="btn btn-success pull-right"
-    type="button"
-    (click)="editNote(noteForm)"
-  >
-    Edit
-  </button>
+  <span *ngIf="edittingANote">
+    <button class="btn btn-danger" type="button" (click)="deleteNote(noteForm)">
+      Delete
+    </button>
+
+    <button
+      class="btn btn-success pull-right"
+      type="button"
+      (click)="editNote(noteForm)"
+    >
+      Edit
+    </button>
+  </span>
 
   <button class="btn btn-default" type="reset">Reset</button>
 </form>

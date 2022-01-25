@@ -58,4 +58,15 @@ export class EditNoteComponent implements OnInit{
     form.reset();
   }
 
+  deleteNote(form: HTMLFormElement) {
+    const confirmDelete = confirm("Are you sure that you want to delete this note?");
+    if (confirmDelete) {
+      this.notesService.deleteNote();
+    }
+    this.selectedNoteContent = "";
+    this.selectedNoteTitle = "";
+    this.edittingANote = false;
+    form.reset();
+  }
+
 }
