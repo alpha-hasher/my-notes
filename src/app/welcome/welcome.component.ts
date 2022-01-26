@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -12,7 +12,7 @@ export class WelcomeComponent implements OnInit {
   loginStateEmitter: EventEmitter<boolean> =  new EventEmitter<boolean>();
 
 
-  constructor() { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -22,8 +22,9 @@ export class WelcomeComponent implements OnInit {
   }
 
   login() {
-    this.isAuthenticated = true;
-    this.loginStateEmitter.emit(true);
+    // this.isAuthenticated = true;
+    // this.loginStateEmitter.emit(true);
+    this.router.navigate (['./../home/notes'], {relativeTo: this.activatedRoute});
   }
 }
 

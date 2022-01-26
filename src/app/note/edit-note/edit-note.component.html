@@ -1,5 +1,5 @@
 <!-- elementRef noteForm -->
-<form class="form" #noteForm>
+<form class="form" #noteForm (ngSubmit)="addNote(noteForm)">
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -9,6 +9,7 @@
       id="title"
       placeholder="Your note title goes here"
       [ngModel]="selectedNoteTitle"
+      required
       #title
     />
   </div>
@@ -22,6 +23,7 @@
       row="7"
       placeholder="Your note content goes here"
       [ngModel]="selectedNoteContent"
+      required
       #content
     ></textarea>
   </div>
@@ -29,7 +31,6 @@
   <button
     *ngIf="!edittingANote"
     class="btn btn-success pull-right"
-    type="button"
     (click)="addNote(noteForm)"
   >
     Add

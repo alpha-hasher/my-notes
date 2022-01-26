@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Note } from "../models/note.model";
 import { LoggingService } from "./logging.service";
 import { Subject } from "rxjs";
+import { NotesHttpService } from "./notes.http.service";
 
 @Injectable({providedIn: 'root'})
 export class NotesService {
@@ -18,7 +19,7 @@ export class NotesService {
   notesUpdated: Subject<Note[]> = new Subject<Note[]>();
   noteSelected: Subject<Note> = new Subject<Note>();
 // service injected into another service
-  constructor(private loggingService: LoggingService) {
+  constructor(private loggingService: LoggingService, private notesHttpService: NotesHttpService) {
   }
 
 
@@ -43,6 +44,7 @@ export class NotesService {
 
   addNote (note: Note) {
     this.myNotes.push(note);
+    this.notesHttpService.addNoteToDatabase(this.myNotes);
     this.loggingService.log('note added: ', note);
     this.updateNotesListners();
   }

@@ -1,0 +1,8 @@
+.navlinks {
+  cursor: pointer;
+}
+
+a.active {
+  background-color: darkgray !important;
+  color: #fff !important;
+}

@@ -1,17 +1,14 @@
 <div class="container container-fluid">
-  <div *ngIf="!userAuthenticated">
+  <!-- <div *ngIf="!userAuthenticated">
     <app-welcome
       [isAuthenticated]="userAuthenticated"
       (loginStateEmitter)="onAuthChange($event)"
     ></app-welcome>
-  </div>
-  <div *ngIf="userAuthenticated">
-    <app-header
-      (onLogout)="onAuthChange($event)"
-      (menuSelected)="menuSelected($event)"
-    ></app-header>
+  </div> -->
+  <!-- <div *ngIf="userAuthenticated">
     <app-home *ngIf="currentMenu === 'home'"></app-home>
-    <app-note *ngIf="currentMenu === 'note'"></app-note>
-    <app-upcoming *ngIf="currentMenu === 'upcoming'"></app-upcoming>
-  </div>
+      <app-note *ngIf="currentMenu === 'note'"></app-note>
+      <app-upcoming *ngIf="currentMenu === 'upcoming'"></app-upcoming>
+  </div> -->
+  <router-outlet></router-outlet>
 </div>

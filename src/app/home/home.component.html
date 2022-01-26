@@ -1,1 +1,25 @@
-<p>home works!</p>
+<!-- <app-header *ngIf="userAuthenticated"></app-header> -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <nav class="navbar navbar-default">
+      <a
+        class="navbar-brand navlinks"
+        routerLinkActive="active"
+        routerLink="notes"
+        [routerLinkActiveOptions]="{ exact: false }"
+        >Note</a
+      >
+      <a
+        class="navbar-brand navlinks"
+        routerLinkActive="active"
+        routerLink="upcoming"
+        [routerLinkActiveOptions]="{ exact: false }"
+        >Upcoming</a
+      >
+      <a class="pull-right navbar-brand" (click)="logout()"> Logout </a>
+    </nav>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

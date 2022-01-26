@@ -15,7 +15,7 @@ export class AppComponent {
   }
 
   onLogin() {
-    this.userAuthenticated = true;
+    // this.userAuthenticated = true;
   }
 
   onSignup() {
