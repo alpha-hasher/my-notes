@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LoggingService } from 'src/services/logging.service';
 import { NotesService } from 'src/services/notes.service';
@@ -12,14 +13,13 @@ export class EditNoteComponent implements OnInit{
   selectedNoteTitle: string = "";
   selectedNoteContent: string = "";
   edittingANote: boolean = false;
+  submitBtnLabel: string = this.edittingANote? 'Edit' : 'Add';
   // @ViewChild('noteForm', {static: false})
   // noteForm: ElementRef;
   //static: false is default behavior after ng9 so this second property is optional unless you want to set it as true
-  @ViewChild('title', {static: false})
-  noteTitle: ElementRef ;
-  //default static: false
-  @ViewChild('content')
-  noteContent: ElementRef;
+  @ViewChild('noteForm', {static: false})
+  form: NgForm;
+
 
   noteSelectedSubscription: Subscription;
 
@@ -36,18 +36,19 @@ export class EditNoteComponent implements OnInit{
   }
 
 
-  addNote (form: HTMLFormElement) {
-    const title = this.noteTitle.nativeElement.value;
-    const content = this.noteContent.nativeElement.value;
+  addNote () {
+    console.log('added note "', this.form.value['title'], '" with content "', this.form.value['content'], '"')
+    // const title = this.noteTitle.nativeElement.value;
+    // const content = this.noteContent.nativeElement.value;
 
-    this.notesService.addNote({title: title, content: content});
-    //this clears any dirty or erroneous states of the form as well
-    form.reset();
+    // this.notesService.addNote({title: title, content: content});
+    // //this clears any dirty or erroneous states of the form as well
+    // form.reset();
   }
 
-  editNote (form: HTMLFormElement) {
-    const title = this.noteTitle.nativeElement.value;
-    const content = this.noteContent.nativeElement.value;
+  editNote () {
+    const title = this.form.value['title'];
+    const content = this.form.value['content']
 
     this.notesService.editNote({title: title, content: content});
 
@@ -55,10 +56,10 @@ export class EditNoteComponent implements OnInit{
     this.selectedNoteTitle = "";
     this.edittingANote = false;
     //this clears any dirty or erroneous states of the form as well
-    form.reset();
+    this.form.reset();
   }
 
-  deleteNote(form: HTMLFormElement) {
+  deleteNote() {
     const confirmDelete = confirm("Are you sure that you want to delete this note?");
     if (confirmDelete) {
       this.notesService.deleteNote();
@@ -66,7 +67,21 @@ export class EditNoteComponent implements OnInit{
     this.selectedNoteContent = "";
     this.selectedNoteTitle = "";
     this.edittingANote = false;
-    form.reset();
+    this.form.reset();
+  }
+
+  addDummyNote () {
+    this.form.setValue({
+      title: 'A dummy note',
+      content: 'with a dummy content'
+    });
+
+    //another way is given below, patch value overrides provided properties only
+    /*
+    this.form.form.patchValue({
+      title: 'some title'
+    })
+    */
   }
 
 }

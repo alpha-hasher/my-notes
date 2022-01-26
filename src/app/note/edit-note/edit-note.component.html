@@ -1,5 +1,13 @@
-<!-- elementRef noteForm -->
-<form class="form" #noteForm (ngSubmit)="addNote(noteForm)">
+<!-- elementRef noteForm, we can also use viewChild reference in the component -->
+<!-- using the formsModule angular automatically creates the javascript form object when it encounters a form element
+angular will not automatically detect inputs as it may not know what inputs to include in the object and what to ignore
+we can register controls manually
+ngModel and name properties are required to mark a control as included in the form object
+
+we can use ngNativeValidate to enable default html validation
+
+we can use ngModelGroup='some group name' to group controls under a name-->
+<form class="form" #noteForm="ngForm" (ngSubmit)="addNote()">
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -10,8 +18,11 @@
       placeholder="Your note title goes here"
       [ngModel]="selectedNoteTitle"
       required
-      #title
+      #title="ngModel"
     />
+    <span class="help-block" *ngIf="!title.valid"
+      >Please provide Title {{ title.valid && title.touched }}</span
+    >
   </div>
   <div class="form-group">
     <label for="content">Note content</label>
@@ -23,32 +34,24 @@
       row="7"
       placeholder="Your note content goes here"
       [ngModel]="selectedNoteContent"
-      required
-      #content
     ></textarea>
   </div>
 
   <button
     *ngIf="!edittingANote"
     class="btn btn-success pull-right"
-    (click)="addNote(noteForm)"
+    [disabled]="!noteForm.valid"
   >
-    Add
+    {{ submitBtnLabel }}
   </button>
 
   <span *ngIf="edittingANote">
-    <button class="btn btn-danger" type="button" (click)="deleteNote(noteForm)">
+    <!-- <button class="btn btn-danger" type="button" (click)="deleteNote(noteForm)">
       Delete
-    </button>
-
-    <button
-      class="btn btn-success pull-right"
-      type="button"
-      (click)="editNote(noteForm)"
-    >
-      Edit
-    </button>
+    </button> -->
   </span>
+
+  <button (click)="addDummyNote()" type="button">Add a dummy note</button>
 
   <button class="btn btn-default" type="reset">Reset</button>
 </form>
