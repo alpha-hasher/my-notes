@@ -1,13 +1,6 @@
 <!-- elementRef noteForm, we can also use viewChild reference in the component -->
-<!-- using the formsModule angular automatically creates the javascript form object when it encounters a form element
-angular will not automatically detect inputs as it may not know what inputs to include in the object and what to ignore
-we can register controls manually
-ngModel and name properties are required to mark a control as included in the form object
-
-we can use ngNativeValidate to enable default html validation
-
-we can use ngModelGroup='some group name' to group controls under a name-->
-<form class="form" #noteForm="ngForm" (ngSubmit)="addNote()">
+<!-- using the reactiveFormsModules we create the form in code and connect it with the html form using formgroup and other properties-->
+<form class="form" [formGroup]="form" (ngSubmit)="addNote()">
   <div class="form-group">
     <label for="title">Title</label>
     <input
@@ -16,12 +9,13 @@ we can use ngModelGroup='some group name' to group controls under a name-->
       type="text"
       id="title"
       placeholder="Your note title goes here"
-      [ngModel]="selectedNoteTitle"
-      required
-      #title="ngModel"
+      formControlName="title"
+      #title
     />
-    <span class="help-block" *ngIf="!title.valid"
-      >Please provide Title {{ title.valid && title.touched }}</span
+    <span
+      class="help-block"
+      *ngIf="!form.get('title')?.valid && form.get('title')?.touched"
+      >Please provide Title</span
     >
   </div>
   <div class="form-group">
@@ -33,15 +27,11 @@ we can use ngModelGroup='some group name' to group controls under a name-->
       id="content"
       row="7"
       placeholder="Your note content goes here"
-      [ngModel]="selectedNoteContent"
+      formControlName="content"
     ></textarea>
   </div>
 
-  <button
-    *ngIf="!edittingANote"
-    class="btn btn-success pull-right"
-    [disabled]="!noteForm.valid"
-  >
+  <button *ngIf="!edittingANote" class="btn btn-success pull-right">
     {{ submitBtnLabel }}
   </button>
 

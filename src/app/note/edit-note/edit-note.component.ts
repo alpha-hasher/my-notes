@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LoggingService } from 'src/services/logging.service';
 import { NotesService } from 'src/services/notes.service';
@@ -17,8 +17,8 @@ export class EditNoteComponent implements OnInit{
   // @ViewChild('noteForm', {static: false})
   // noteForm: ElementRef;
   //static: false is default behavior after ng9 so this second property is optional unless you want to set it as true
-  @ViewChild('noteForm', {static: false})
-  form: NgForm;
+
+  form: FormGroup;
 
 
   noteSelectedSubscription: Subscription;
@@ -26,6 +26,14 @@ export class EditNoteComponent implements OnInit{
   constructor(private notesService: NotesService) { }
 
   ngOnInit(): void {
+
+    this.form = new FormGroup({
+      'title': new FormControl('', Validators.required),
+      'content': new FormControl('', [Validators.required, this.validateContent.bind(this)])
+    });
+
+
+
     this.noteSelectedSubscription = this.notesService.noteSelected.subscribe( note => {
       if (note.title || note.content) {
         this.edittingANote = true;
@@ -37,7 +45,7 @@ export class EditNoteComponent implements OnInit{
 
 
   addNote () {
-    console.log('added note "', this.form.value['title'], '" with content "', this.form.value['content'], '"')
+    console.log('added note "', this.form.value.title, '" with content "', this.form.value.content, '"')
     // const title = this.noteTitle.nativeElement.value;
     // const content = this.noteContent.nativeElement.value;
 
@@ -82,6 +90,14 @@ export class EditNoteComponent implements OnInit{
       title: 'some title'
     })
     */
+  }
+
+  //{[s: string]: boolean} is replaced with ValidationErrors
+  validateContent (control: AbstractControl): ValidationErrors | null{
+    if (control.value !== '') {
+      return { contentValid: true};
+    }
+    return null;
   }
 
 }

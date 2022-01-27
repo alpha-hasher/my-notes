@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { CaseTransformPipe } from "src/directives_and_pipes/caseTransform.pipe";
 import { RsIfDirective } from "src/directives_and_pipes/rsIf.directive";
 import { TitleStyleDirective } from "src/directives_and_pipes/titleStyle.directive";
@@ -12,7 +12,7 @@ import { HomeRoutingModule } from "./home.routing.module"
   imports: [
     HomeRoutingModule,
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     NoteComponent,
